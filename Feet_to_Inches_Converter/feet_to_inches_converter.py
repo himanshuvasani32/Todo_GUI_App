@@ -23,11 +23,16 @@ while True:
     event, values = window.read()
     match event:
         case 'Convert':
-            feet = float(values["feet"])
-            inches = float(values["inches"])
-            result = feet_inches_converter(feet, inches)
-            window["output"].update(value=f"{feet} feet and {inches} inches is equal to {result} meters.")
+            try:
+                feet = float(values["feet"])
+                inches = float(values["inches"])
+                result = feet_inches_converter(feet, inches)
+                window["output"].update(value=f"{feet} feet and {inches} inches is equal to {result} meters.")
+            except ValueError:
+                sg.popup('Please provide two numbers.', font=('Helvetica', 15))
         case 'Exit':
+            break
+        case sg.WIN_CLOSED:
             break
 
 window.close()
